@@ -16,7 +16,7 @@ os.environ['FLIGHT_RADAR_KEY'] = 'dummy_key'
 project = 'FlightRadar24 Python SDK'
 copyright = '2025, Amir Muminovic'
 author = 'Amir Muminovic'
-release = '0.0.2'
+release = '0.0.3'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
