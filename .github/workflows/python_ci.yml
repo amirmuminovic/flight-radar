@@ -1,0 +1,65 @@
+name: Python CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install uv
+        run: |
+          curl -Ls https://astral.sh/uv/install.sh | sh
+          uv --version
+      - name: Install dependencies
+        run: |
+          uv sync --extra dev
+      - name: Run tests with coverage
+        run: |
+          ENV_FILE=tests/test.env uv run pytest --cov=flight_radar --cov-report=xml --cov-report=term-missing
+      - name: Check coverage percentage
+        run: |
+          uv run coverage report --fail-under=95
+      - name: Run linter (ruff check)
+        run: |
+          uv run ruff check .
+      - name: Check formatting (ruff format)
+        run: |
+          uv run ruff format . --check
+      - name: Pip Audit
+        run: |
+          uv run pip-audit
+
+  publish:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install uv
+        run: |
+          curl -Ls https://astral.sh/uv/install.sh | sh
+          uv --version
+      - name: Install dependencies
+        run: |
+          uv sync --extra dev
+      - name: Build and publish
+        run: |
+          uv build
+          uv publish --username __token__ --password ${{ secrets.PYPI_API_TOKEN }}

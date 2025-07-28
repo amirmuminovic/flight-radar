@@ -1,0 +1,19 @@
+[
+  {
+    "fr24_id": "35f2ffd9",
+    "tracks": [
+      {
+        "timestamp": "2024-07-02T11:22:43Z",
+        "lat": 62.97148,
+        "lon": -26.25193,
+        "alt": 33000,
+        "gspeed": 505,
+        "vspeed": 0,
+        "track": 105,
+        "squawk": "2566",
+        "callsign": "THY10",
+        "source": "ADSB"
+      }
+    ]
+  }
+]

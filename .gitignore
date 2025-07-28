@@ -1,0 +1,22 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+venv
+.env
+.vscode
+docs/_build
+
+# Tool-specific caches and metadata
+.coverage
+.DS_Store
+.pytest_cache/
+.ruff_cache/
+.idea/
+**/*.bak

@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "fr24_id": "321a0cc3",
+      "hex": "394C19",
+      "callsign": "AFR1463",
+      "lat": -0.08806,
+      "lon": -168.07118,
+      "track": 219,
+      "alt": 38000,
+      "gspeed": 500,
+      "vspeed": 340,
+      "squawk": 6135,
+      "timestamp": "2023-11-08T10:10:00Z",
+      "source": "ADSB"
+    }
+  ]
+}

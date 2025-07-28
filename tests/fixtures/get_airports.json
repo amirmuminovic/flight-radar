@@ -1,0 +1,35 @@
+{
+  "name": "Stockholm Arlanda Airport",
+  "iata": "ARN",
+  "icao": "ESSA",
+  "lon": 17.939816,
+  "lat": 59.653545,
+  "elevation": 137,
+  "country": {
+    "code": "SE",
+    "name": "SWEDEN"
+  },
+  "city": "Stockholm",
+  "state": null,
+  "timezone": {
+    "name": "Europe/Stockholm",
+    "offset": 7200
+  },
+  "runways": [
+    {
+      "designator": "01L",
+      "heading": 4,
+      "length": 10830,
+      "width": 148,
+      "elevation": 99,
+      "thr_coordinates": [
+        59.637252777777775,
+        17.91322222222222
+      ],
+      "surface": {
+        "type": "ASPHH",
+        "description": "Asphalt"
+      }
+    }
+  ]
+}

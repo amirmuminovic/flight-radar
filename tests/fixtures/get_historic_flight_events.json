@@ -1,0 +1,27 @@
+{
+  "data": [
+    {
+      "fr24_id": "2efc4160",
+      "callsign": "SAS1415",
+      "hex": "4AC9F5",
+      "operating_as": "SAS",
+      "painted_as": "SAS",
+      "orig_iata": "ARN",
+      "orig_icao": "ESSA",
+      "dest_iata": "CPH",
+      "dest_icao": "EKCH",
+      "events": [
+        {
+          "type": "gate_departure",
+          "timestamp": "2023-01-27T05:12:11Z",
+          "details": {
+            "exited_airspace": "SWEDEN",
+            "exited_airspace_id": "ESAA",
+            "entered_airspace": "KOBENHAVN",
+            "entered_airspace_id": "EKDK"
+          }
+        }
+      ]
+    }
+  ]
+}

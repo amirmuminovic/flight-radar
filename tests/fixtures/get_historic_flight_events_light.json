@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "fr24_id": "2efc4160",
+      "callsign": "SAS1415",
+      "hex": "4AC9F5",
+      "events": [
+        {
+          "type": "airspace_transition",
+          "timestamp": "2023-01-27T06:02:43Z",
+          "lat": 55.98839,
+          "lon": 12.64427,
+          "alt": 8700,
+          "gspeed": 301,
+          "details": {
+            "exited_airspace": "SWEDEN",
+            "exited_airspace_id": "ESAA",
+            "entered_airspace": "KOBENHAVN",
+            "entered_airspace_id": "EKDK"
+          }
+        }
+      ]
+    }
+  ]
+}
