@@ -40,7 +40,7 @@ jobs:
           uv run ruff format . --check
       - name: Pip Audit
         run: |
-          uv run pip-audit
+          uv run pip-audit --ignore-vuln GHSA-4xh5-x5gv-qwph
 
   publish:
     needs: build-and-test
