@@ -79,7 +79,7 @@ class FlightSummaryBaseRequest(BaseModel):
 
         field_names = list(FlightSummaryBaseRequest.model_fields.keys())
         query_field_names = [
-            fn for fn in field_names if fn not in ['flight_datetime_from', 'flight_datetime_to', 'flight_ids']
+            fn for fn in field_names if fn not in ['flight_datetime_from', 'flight_datetime_to']
         ]
         if all(getattr(self, field_name) is None for field_name in query_field_names):
             raise ValueError('At least one filter parameter must be provided')
