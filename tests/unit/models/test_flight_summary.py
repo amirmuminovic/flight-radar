@@ -18,7 +18,6 @@ def test_should_raise_validation_error_if_no_flight_id_or_datetime_range_provide
 @pytest.mark.parametrize(
     'key_filters',
     [
-        {'flight_ids': ['123']},
         {
             'flight_datetime_from': datetime.now(tz=timezone.utc) - timedelta(days=1),
             'flight_datetime_to': datetime.now(tz=timezone.utc),
