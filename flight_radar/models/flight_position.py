@@ -22,6 +22,9 @@ from flight_radar.models.common import (
 
 
 class FlightPositionBaseRequest(BaseModel):
+    """
+    Represents the base request for flight position data.
+    """
     bounds: tuple[float, float, float, float] | None = None
     flights: ConstrainedStringList | None = None
     callsigns: ConstrainedStringList | None = None
@@ -40,8 +43,9 @@ class FlightPositionBaseRequest(BaseModel):
 
     @model_validator(mode='after')
     def validate(self):
-        """Validate that at least one filter parameter is provided."""
-
+        """
+        Validate that at least one filter parameter is provided.
+        """
         field_names = list(FlightPositionBaseRequest.model_fields.keys())
 
         if all(getattr(self, field_name) is None for field_name in field_names):
@@ -111,6 +115,12 @@ class FlightPositionBaseRequest(BaseModel):
         return ','.join(data_sources)
 
     def to_dto(self) -> FlightPositionBaseRequestDto:
+        """
+        Converts the request to a DTO.
+
+        Returns:
+            A FlightPositionBaseRequestDto object.
+        """
         return FlightPositionBaseRequestDto(
             bounds=self._map_bounds(),
             flights=','.join(self.flights) if self.flights else None,
@@ -131,6 +141,9 @@ class FlightPositionBaseRequest(BaseModel):
 
 
 class LiveFlightPositionCountRequest(FlightPositionBaseRequest):
+    """
+    Represents a request for a count of live flight positions.
+    """
     pass
 
 
@@ -138,9 +151,18 @@ MAX_LIMIT = 30000
 
 
 class LiveFlightPositionRequest(FlightPositionBaseRequest):
+    """
+    Represents a request for live flight position data.
+    """
     limit: Annotated[int, Field(ge=1, le=MAX_LIMIT)] | None = None
 
     def to_dto(self) -> GetLiveFlightPositionRequestDto:
+        """
+        Converts the request to a DTO.
+
+        Returns:
+            A GetLiveFlightPositionRequestDto object.
+        """
         dto = super().to_dto()
         return GetLiveFlightPositionRequestDto(
             **dto.model_dump(),
@@ -149,10 +171,19 @@ class LiveFlightPositionRequest(FlightPositionBaseRequest):
 
 
 class HistoricFlightPositionRequest(FlightPositionBaseRequest):
+    """
+    Represents a request for historic flight position data.
+    """
     timestamp: datetime
     limit: Annotated[int, Field(ge=1, le=MAX_LIMIT)] | None = None
 
     def to_dto(self) -> GetHistoricFlightPositionRequestDto:
+        """
+        Converts the request to a DTO.
+
+        Returns:
+            A GetHistoricFlightPositionRequestDto object.
+        """
         dto = super().to_dto()
         return GetHistoricFlightPositionRequestDto(
             **dto.model_dump(),
@@ -162,6 +193,9 @@ class HistoricFlightPositionRequest(FlightPositionBaseRequest):
 
 
 class HistoricFlightPositionCountRequest(FlightPositionBaseRequest):
+    """
+    Represents a request for a count of historic flight positions.
+    """
     timestamp: datetime = Field(
         description="""Unix timestamp representing the exact point in time for which you want to fetch flight positions.
         The timestamp must be later than May 11, 2016, subject to your subscription plan's limitations.
@@ -169,6 +203,12 @@ class HistoricFlightPositionCountRequest(FlightPositionBaseRequest):
     )
 
     def to_dto(self) -> GetHistoricFlightPositionCountRequestDto:
+        """
+        Converts the request to a DTO.
+
+        Returns:
+            A GetHistoricFlightPositionCountRequestDto object.
+        """
         dto = super().to_dto()
         return GetHistoricFlightPositionCountRequestDto(
             **dto.model_dump(),
@@ -177,6 +217,9 @@ class HistoricFlightPositionCountRequest(FlightPositionBaseRequest):
 
 
 class FlightPositionLight(BaseModel):
+    """
+    Represents a light version of a flight's position.
+    """
     fr24_id: str = Field(description='Unique identifier assigned by Flightradar24 to the flight leg.')
     hex: str | None = Field(
         description='24 bit Mode-S identifier expressed in hexadecimal format.',
@@ -206,6 +249,15 @@ class FlightPositionLight(BaseModel):
 
     @staticmethod
     def from_dto(dto: FlightPositionLightDto) -> 'FlightPositionLight':
+        """
+        Creates a FlightPositionLight object from a FlightPositionLightDto.
+
+        Args:
+            dto: The FlightPositionLightDto object.
+
+        Returns:
+            A FlightPositionLight object.
+        """
         return FlightPositionLight(
             fr24_id=dto.fr24_id,
             hex=dto.hex,
@@ -223,6 +275,9 @@ class FlightPositionLight(BaseModel):
 
 
 class FlightPosition(FlightPositionLight):
+    """
+    Represents a flight's position.
+    """
     flight: str | None = Field(
         description='Commercial flight number.',
         default=None,
@@ -266,6 +321,15 @@ class FlightPosition(FlightPositionLight):
 
     @staticmethod
     def from_dto(dto: FlightPositionResponseDto) -> 'FlightPosition':
+        """
+        Creates a FlightPosition object from a FlightPositionResponseDto.
+
+        Args:
+            dto: The FlightPositionResponseDto object.
+
+        Returns:
+            A FlightPosition object.
+        """
         return FlightPosition(
             fr24_id=dto.fr24_id,
             hex=dto.hex,
@@ -293,10 +357,22 @@ class FlightPosition(FlightPositionLight):
 
 
 class CountResponse(BaseModel):
+    """
+    Represents a count of records.
+    """
     record_count: int = Field(description='Total number of records matching the query.')
 
     @staticmethod
     def from_dto(dto: CountResponseDto) -> 'CountResponse':
+        """
+        Creates a CountResponse object from a CountResponseDto.
+
+        Args:
+            dto: The CountResponseDto object.
+
+        Returns:
+            A CountResponse object.
+        """
         return CountResponse(
             record_count=dto.record_count,
         )

@@ -47,18 +47,27 @@ from flight_radar.services.base import BaseFlightRadarClient
 
 
 class FlightRadarClient(BaseFlightRadarClient):
+    """
+    Client for the Flight Radar API.
+    """
     def __init__(self, api_client: FlightRadarApiClient):
+        """
+        Initializes the FlightRadarClient.
+
+        Args:
+            api_client: An instance of the FlightRadarApiClient.
+        """
         self.api_client = api_client
 
     def get_airlines_light(self, icao: str) -> Airline:
         """
-        Get airline light data
+        Retrieves a light version of an airline's data.
 
         Args:
-            icao: ICAO code of the airline
+            icao: The ICAO code of the airline.
 
         Returns:
-            Airline: Airline model
+            An Airline object.
         """
         dto = self.api_client.get(
             f'/static/airlines/{icao}/light',
@@ -69,13 +78,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_airports_light(self, code: str) -> AirportLight:
         """
-        Get airport light data
+        Retrieves a light version of an airport's data.
 
         Args:
-            code: ICAO code of the airport
+            code: The ICAO or IATA code of the airport.
 
         Returns:
-            AirportLight: Airport light model
+            An AirportLight object.
         """
         dto = self.api_client.get(
             f'/static/airports/{code}/light',
@@ -86,13 +95,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_airports(self, code: str) -> Airport:
         """
-        Get airport data
+        Retrieves a full version of an airport's data.
 
         Args:
-            code: ICAO code of the airport
+            code: The ICAO or IATA code of the airport.
 
         Returns:
-            Airport: Airport model
+            An Airport object.
         """
         dto = self.api_client.get(
             f'/static/airports/{code}/full',
@@ -103,13 +112,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_live_flight_positions_light(self, request: LiveFlightPositionRequest) -> List[FlightPositionLight]:
         """
-        Get live flight positions light data
+        Retrieves a light version of live flight positions.
 
         Args:
-            request: LiveFlightPositionRequest
+            request: A LiveFlightPositionRequest object.
 
         Returns:
-            List[FlightPositionLight]: List of flight position light models
+            A list of FlightPositionLight objects.
         """
         dto = self.api_client.get(
             '/live/flight-positions/light',
@@ -121,13 +130,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_live_flight_positions(self, request: LiveFlightPositionRequest) -> List[FlightPosition]:
         """
-        Get live flight positions data
+        Retrieves a full version of live flight positions.
 
         Args:
-            request: LiveFlightPositionRequest
+            request: A LiveFlightPositionRequest object.
 
         Returns:
-            List[FlightPosition]: List of flight position models
+            A list of FlightPosition objects.
         """
         dto = self.api_client.get(
             '/live/flight-positions/full',
@@ -139,13 +148,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_live_flight_position_count(self, request: LiveFlightPositionCountRequest) -> CountResponse:
         """
-        Get live flight positions count
+        Retrieves a count of live flight positions.
 
         Args:
-            request: LiveFlightPositionCountRequest
+            request: A LiveFlightPositionCountRequest object.
 
         Returns:
-            CountResponse: Count response model
+            A CountResponse object.
         """
         dto = self.api_client.get(
             '/live/flight-positions/count',
@@ -157,13 +166,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_historic_positions_light(self, request: HistoricFlightPositionRequest) -> List[FlightPositionLight]:
         """
-        Get historic flight positions light data
+        Retrieves a light version of historic flight positions.
 
         Args:
-            request: HistoricFlightPositionRequest
+            request: A HistoricFlightPositionRequest object.
 
         Returns:
-            List[FlightPositionLight]: List of flight position light models
+            A list of FlightPositionLight objects.
         """
         dto = self.api_client.get(
             '/historic/flight-positions/light',
@@ -175,13 +184,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_historic_positions(self, request: HistoricFlightPositionRequest) -> List[FlightPosition]:
         """
-        Get historic flight positions data
+        Retrieves a full version of historic flight positions.
 
         Args:
-            request: HistoricFlightPositionRequest
+            request: A HistoricFlightPositionRequest object.
 
         Returns:
-            List[FlightPosition]: List of flight position models
+            A list of FlightPosition objects.
         """
         dto = self.api_client.get(
             '/historic/flight-positions/full',
@@ -193,13 +202,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_historic_positions_count(self, request: HistoricFlightPositionCountRequest) -> CountResponse:
         """
-        Get historic flight positions count
+        Retrieves a count of historic flight positions.
 
         Args:
-            request: HistoricFlightPositionCountRequest
+            request: A HistoricFlightPositionCountRequest object.
 
         Returns:
-            CountResponse: Count response model
+            A CountResponse object.
         """
         dto = self.api_client.get(
             '/historic/flight-positions/count',
@@ -211,13 +220,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_flight_summary_light(self, request: FlightSummaryRequest) -> List[FlightSummaryLight]:
         """
-        Get flight summary light data
+        Retrieves a light version of a flight summary.
 
         Args:
-            request: FlightSummaryRequest
+            request: A FlightSummaryRequest object.
 
         Returns:
-            List[FlightSummaryLight]: List of flight summary light models
+            A list of FlightSummaryLight objects.
         """
         dto = self.api_client.get(
             '/flight-summary/light',
@@ -229,13 +238,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_flight_summary(self, request: FlightSummaryRequest) -> List[FlightSummary]:
         """
-        Get flight summary data
+        Retrieves a full version of a flight summary.
 
         Args:
-            request: FlightSummaryRequest
+            request: A FlightSummaryRequest object.
 
         Returns:
-            List[FlightSummary]: List of flight summary models
+            A list of FlightSummary objects.
         """
         dto = self.api_client.get(
             '/flight-summary/full',
@@ -247,13 +256,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_flight_summary_count(self, request: FlightSummaryCountRequest) -> CountResponse:
         """
-        Get flight summary count
+        Retrieves a count of flight summaries.
 
         Args:
-            request: FlightSummaryCountRequest
+            request: A FlightSummaryCountRequest object.
 
         Returns:
-            CountResponse: Count response model
+            A CountResponse object.
         """
         dto = self.api_client.get(
             '/flight-summary/count',
@@ -265,13 +274,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_flight_tracks(self, request: FlightTrackRequest) -> tuple[str, List[FlightTrack]]:
         """
-        Get flight tracks
+        Retrieves flight tracks.
 
         Args:
-            request: FlightTrackRequest
+            request: A FlightTrackRequest object.
 
         Returns:
-            tuple[str, List[FlightTrack]]: Tuple containing the flight ID and list of flight tracks
+            A tuple containing the flight ID and a list of FlightTrack objects.
         """
         dto = self.api_client.get_many(
             '/flight-tracks',
@@ -283,13 +292,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_api_usage(self, request: ApiUsageRequest) -> List[ApiUsage]:
         """
-        Get API usage
+        Retrieves API usage data.
 
         Args:
-            request: ApiUsageRequest
+            request: An ApiUsageRequest object.
 
         Returns:
-            List[ApiUsage]: List of API usage models
+            A list of ApiUsage objects.
         """
         dto = self.api_client.get(
             '/usage',
@@ -303,13 +312,13 @@ class FlightRadarClient(BaseFlightRadarClient):
         self, request: HistoricFlightEventRequest
     ) -> List[HistoricFlightEventLightResponseEntry]:
         """
-        Get historic flight events light data
+        Retrieves a light version of historic flight events.
 
         Args:
-            request: HistoricFlightEventRequest
+            request: A HistoricFlightEventRequest object.
 
         Returns:
-            List[HistoricFlightEventLightResponseEntry]: List of historic flight events light models
+            A list of HistoricFlightEventLightResponseEntry objects.
         """
         dto = self.api_client.get(
             '/historic/flight-events/light',
@@ -321,13 +330,13 @@ class FlightRadarClient(BaseFlightRadarClient):
 
     def get_historic_flight_events(self, request: HistoricFlightEventRequest) -> List[HistoricFlightEventResponseEntry]:
         """
-        Get historic flight events data
+        Retrieves a full version of historic flight events.
 
         Args:
-            request: HistoricFlightEventRequest
+            request: A HistoricFlightEventRequest object.
 
         Returns:
-            List[HistoricFlightEventResponse]: List of historic flight events models
+            A list of HistoricFlightEventResponseEntry objects.
         """
         dto = self.api_client.get(
             '/historic/flight-events/full',

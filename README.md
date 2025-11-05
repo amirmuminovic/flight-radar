@@ -47,6 +47,41 @@ This will output a list of `FlightPosition` objects, each containing information
 
 ## Documentation
 
+This client provides a comprehensive set of models and services for interacting with the Flight Radar API.
+
+### Available Models
+
+The client includes the following Pydantic models to represent the data returned by the API:
+
+- `Airline`: Represents an airline.
+- `Airport`: Represents an airport, including details like runways and timezone.
+- `ApiUsage`: Represents API usage statistics.
+- `FlightPosition`: Represents the live or historic position of a flight.
+- `FlightSummary`: Represents a summary of a flight, including departure and arrival information.
+- `FlightTrack`: Represents a single point in a flight's track.
+- `HistoricFlightEvent`: Represents a historic event for a flight, such as takeoff or landing.
+
+### Available Services
+
+The `FlightRadarClient` provides the following methods for fetching data:
+
+- `get_airlines_light`: Get a light version of an airline.
+- `get_airports_light`: Get a light version of an airport.
+- `get_airports`: Get a full version of an airport.
+- `get_live_flight_positions_light`: Get a light version of live flight positions.
+- `get_live_flight_positions`: Get a full version of live flight positions.
+- `get_live_flight_position_count`: Get a count of live flight positions.
+- `get_historic_positions_light`: Get a light version of historic flight positions.
+- `get_historic_positions`: Get a full version of historic flight positions.
+- `get_historic_positions_count`: Get a count of historic flight positions.
+- `get_flight_summary_light`: Get a light version of a flight summary.
+- `get_flight_summary`: Get a full version of a flight summary.
+- `get_flight_summary_count`: Get a count of flight summaries.
+- `get_flight_tracks`: Get flight tracks.
+- `get_api_usage`: Get API usage.
+- `get_historic_flight_events_light`: Get a light version of historic flight events.
+- `get_historic_flight_events`: Get a full version of historic flight events.
+
 For more detailed information about the available methods and models, please refer to the [official documentation](https://amirmuminovic.github.io/flight-radar/).
 
 ## Contributing

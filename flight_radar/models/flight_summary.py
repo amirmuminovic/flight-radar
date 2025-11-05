@@ -18,6 +18,9 @@ from flight_radar.models.common import (
 
 
 class FlightSummaryBaseRequest(BaseModel):
+    """
+    Represents the base request for flight summary data.
+    """
     flight_ids: ConstrainedStringList | None = Field(
         description='fr24_ids (maximum 15 IDs). Cannot be combined with flight_datetime',
         default=None,
@@ -72,6 +75,9 @@ class FlightSummaryBaseRequest(BaseModel):
 
     @model_validator(mode='after')
     def validate(self):
+        """
+        Validates the request parameters.
+        """
         time_range_specific = bool(self.flight_datetime_from and self.flight_datetime_to)
 
         if not time_range_specific and not self.flight_ids:
@@ -91,6 +97,12 @@ class FlightSummaryBaseRequest(BaseModel):
         return self
 
     def to_dto(self) -> FlightSummaryBaseRequestDto:
+        """
+        Converts the request to a DTO.
+
+        Returns:
+            A FlightSummaryBaseRequestDto object.
+        """
         return FlightSummaryBaseRequestDto(
             flight_ids=','.join(self.flight_ids) if self.flight_ids else None,
             flight_datetime_from=(self.flight_datetime_from.isoformat() if self.flight_datetime_from else None),
@@ -110,6 +122,9 @@ MAX_FLIGHT_SUMMARY_LIMIT = 20000
 
 
 class FlightSummaryRequest(FlightSummaryBaseRequest):
+    """
+    Represents a request for flight summary data.
+    """
     limit: Annotated[int, Field(ge=1, le=MAX_FLIGHT_SUMMARY_LIMIT)] | None = Field(
         default=None,
         description=f'Limit of results. Max value {MAX_FLIGHT_SUMMARY_LIMIT}',
@@ -121,6 +136,12 @@ class FlightSummaryRequest(FlightSummaryBaseRequest):
     )
 
     def to_dto(self) -> GetFlightSummaryRequestDto:
+        """
+        Converts the request to a DTO.
+
+        Returns:
+            A GetFlightSummaryRequestDto object.
+        """
         dto = super().to_dto()
         return GetFlightSummaryRequestDto(
             **dto.model_dump(),
@@ -130,10 +151,16 @@ class FlightSummaryRequest(FlightSummaryBaseRequest):
 
 
 class FlightSummaryCountRequest(FlightSummaryBaseRequest):
+    """
+    Represents a request for a count of flight summary data.
+    """
     pass
 
 
 class FlightSummaryLight(BaseModel):
+    """
+    Represents a light version of a flight summary.
+    """
     fr24_id: str = Field(description='Unique identifier assigned by Flightradar24 to the flight leg.')
     flight: str | None = Field(description='Commercial flight number.', default=None)
     callsign: str | None = Field(
@@ -183,6 +210,15 @@ class FlightSummaryLight(BaseModel):
 
     @staticmethod
     def from_dto(dto: FlightSummaryLightDto) -> 'FlightSummaryLight':
+        """
+        Creates a FlightSummaryLight object from a FlightSummaryLightDto.
+
+        Args:
+            dto: The FlightSummaryLightDto object.
+
+        Returns:
+            A FlightSummaryLight object.
+        """
         return FlightSummaryLight(
             fr24_id=dto.fr24_id,
             flight=dto.flight,
@@ -203,6 +239,9 @@ class FlightSummaryLight(BaseModel):
 
 
 class FlightSummary(FlightSummaryLight):
+    """
+    Represents a flight summary.
+    """
     orig_iata: str | None = Field(
         description='Origin airport IATA code.',
         default=None,
@@ -242,6 +281,15 @@ class FlightSummary(FlightSummaryLight):
 
     @staticmethod
     def from_dto(dto: FlightSummaryDto) -> 'FlightSummary':
+        """
+        Creates a FlightSummary object from a FlightSummaryDto.
+
+        Args:
+            dto: The FlightSummaryDto object.
+
+        Returns:
+            A FlightSummary object.
+        """
         return FlightSummary(
             fr24_id=dto.fr24_id,
             flight=dto.flight,

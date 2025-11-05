@@ -15,6 +15,9 @@ from flight_radar.models.common import ConstrainedStringList
 
 
 class HistoricFlightEventRequest(BaseModel):
+    """
+    Represents a request for historic flight event data.
+    """
     flight_ids: ConstrainedStringList = Field(
         description='List of fr24_ids (maximum 15 IDs). Cannot be combined with event_datetime.',
     )
@@ -30,6 +33,12 @@ class HistoricFlightEventRequest(BaseModel):
         return ','.join([event_type.value for event_type in self.event_types])
 
     def to_dto(self) -> HistoricFlightEventRequestDto:
+        """
+        Converts the request to a DTO.
+
+        Returns:
+            A HistoricFlightEventRequestDto object.
+        """
         return HistoricFlightEventRequestDto(
             flight_ids=','.join(self.flight_ids),
             event_types=self._map_event_types(),
@@ -37,6 +46,9 @@ class HistoricFlightEventRequest(BaseModel):
 
 
 class HistoricFlightEventDetails(BaseModel):
+    """
+    Represents the details of a historic flight event.
+    """
     gate_ident: str | None = Field(
         description='Gate identifier.',
         default=None,
@@ -80,6 +92,15 @@ class HistoricFlightEventDetails(BaseModel):
 
     @staticmethod
     def from_dto(dto: HistoricFlightEventDetailsDto) -> 'HistoricFlightEventDetails':
+        """
+        Creates a HistoricFlightEventDetails object from a HistoricFlightEventDetailsDto.
+
+        Args:
+            dto: The HistoricFlightEventDetailsDto object.
+
+        Returns:
+            A HistoricFlightEventDetails object.
+        """
         return HistoricFlightEventDetails(
             gate_ident=dto.gate_ident,
             gate_lat=dto.gate_lat,
@@ -95,6 +116,9 @@ class HistoricFlightEventDetails(BaseModel):
 
 
 class HistoricFlightEvent(BaseModel):
+    """
+    Represents a historic flight event.
+    """
     type: HistoricFlightEventTypes = Field(description='Type of the event (e.g., gate_departure, takeoff, cruising).')
     timestamp: datetime = Field(description='Time of the event in UTC.')
     lat: float | None = Field(description='Latitude at the time of the event.', default=None)
@@ -108,6 +132,15 @@ class HistoricFlightEvent(BaseModel):
 
     @staticmethod
     def from_dto(dto: HistoricFlightEventDto) -> 'HistoricFlightEvent':
+        """
+        Creates a HistoricFlightEvent object from a HistoricFlightEventDto.
+
+        Args:
+            dto: The HistoricFlightEventDto object.
+
+        Returns:
+            A HistoricFlightEvent object.
+        """
         return HistoricFlightEvent(
             type=HistoricFlightEventTypes(dto.type),
             timestamp=datetime.fromisoformat(dto.timestamp),
@@ -120,6 +153,9 @@ class HistoricFlightEvent(BaseModel):
 
 
 class HistoricFlightEventLightResponseEntry(BaseModel):
+    """
+    Represents a light version of a historic flight event response entry.
+    """
     fr24_id: str = Field(description='Unique identifier for the flight.')
     callsign: str = Field(description='Flight number or callsign.')
     hex: str = Field(description='Aircraft hex code.')
@@ -129,6 +165,15 @@ class HistoricFlightEventLightResponseEntry(BaseModel):
     def from_dto(
         dto: HistoricFlightEventBaseResponseDto,
     ) -> 'HistoricFlightEventLightResponseEntry':
+        """
+        Creates a HistoricFlightEventLightResponseEntry object from a HistoricFlightEventBaseResponseDto.
+
+        Args:
+            dto: The HistoricFlightEventBaseResponseDto object.
+
+        Returns:
+            A HistoricFlightEventLightResponseEntry object.
+        """
         return HistoricFlightEventLightResponseEntry(
             fr24_id=dto.fr24_id,
             callsign=dto.callsign,
@@ -138,6 +183,9 @@ class HistoricFlightEventLightResponseEntry(BaseModel):
 
 
 class HistoricFlightEventResponseEntry(HistoricFlightEventLightResponseEntry):
+    """
+    Represents a historic flight event response entry.
+    """
     painted_as: str | None = Field(
         description='The airline or operator the flight is painted as.',
         default=None,
@@ -155,6 +203,15 @@ class HistoricFlightEventResponseEntry(HistoricFlightEventLightResponseEntry):
     def from_dto(
         dto: HistoricFlightEventResponseEntryDto,
     ) -> 'HistoricFlightEventResponseEntry':
+        """
+        Creates a HistoricFlightEventResponseEntry object from a HistoricFlightEventResponseEntryDto.
+
+        Args:
+            dto: The HistoricFlightEventResponseEntryDto object.
+
+        Returns:
+            A HistoricFlightEventResponseEntry object.
+        """
         return HistoricFlightEventResponseEntry(
             fr24_id=dto.fr24_id,
             callsign=dto.callsign,

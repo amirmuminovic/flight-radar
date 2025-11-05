@@ -11,11 +11,23 @@ from flight_radar.dtos import (
 
 
 class Country(BaseModel):
+    """
+    Represents a country.
+    """
     code: str = Field(description='ISO 3166-1 alpha-2 code of the country')
     name: str = Field(description='Name of the country')
 
     @staticmethod
     def from_dto(dto: CountryDto) -> 'Country':
+        """
+        Creates a Country object from a CountryDto.
+
+        Args:
+            dto: The CountryDto object.
+
+        Returns:
+            A Country object.
+        """
         return Country(
             code=dto.code,
             name=dto.name,
@@ -23,11 +35,23 @@ class Country(BaseModel):
 
 
 class Timezone(BaseModel):
+    """
+    Represents a timezone.
+    """
     name: str = Field(description='Name of the timezone')
     offset: int = Field(description='Offset from UTC in seconds')
 
     @staticmethod
     def from_dto(dto: TimezoneDto) -> 'Timezone':
+        """
+        Creates a Timezone object from a TimezoneDto.
+
+        Args:
+            dto: The TimezoneDto object.
+
+        Returns:
+            A Timezone object.
+        """
         return Timezone(
             name=dto.name,
             offset=dto.offset,
@@ -35,6 +59,9 @@ class Timezone(BaseModel):
 
 
 class Surface(BaseModel):
+    """
+    Represents a runway surface.
+    """
     type: str = Field(
         description='Surface type code (e.g., ASPHH for asphalt).',
         examples=['ASPHH'],
@@ -46,6 +73,15 @@ class Surface(BaseModel):
 
     @staticmethod
     def from_dto(dto: SurfaceDto) -> 'Surface':
+        """
+        Creates a Surface object from a SurfaceDto.
+
+        Args:
+            dto: The SurfaceDto object.
+
+        Returns:
+            A Surface object.
+        """
         return Surface(
             type=dto.type,
             description=dto.description,
@@ -53,6 +89,9 @@ class Surface(BaseModel):
 
 
 class Runway(BaseModel):
+    """
+    Represents a runway.
+    """
     designator: str = Field(description='Runway designator (e.g., 18R/36L).')
     heading: float = Field(description='Runway heading in decimal degrees.')
     length: int = Field(description='Runway length in feet.')
@@ -65,6 +104,15 @@ class Runway(BaseModel):
 
     @staticmethod
     def from_dto(dto: RunwayDto) -> 'Runway':
+        """
+        Creates a Runway object from a RunwayDto.
+
+        Args:
+            dto: The RunwayDto object.
+
+        Returns:
+            A Runway object.
+        """
         return Runway(
             designator=dto.designator,
             heading=dto.heading,
@@ -77,12 +125,24 @@ class Runway(BaseModel):
 
 
 class AirportLight(BaseModel):
+    """
+    Represents a light version of an airport.
+    """
     icao: str = Field(description='Airport ICAO code')
     name: str | None = Field(description='Airport name', default=None)
     iata: str | None = Field(description='Airport IATA code', default=None)
 
     @staticmethod
     def from_dto(dto: GetAirportLightResponseDto) -> 'AirportLight':
+        """
+        Creates an AirportLight object from a GetAirportLightResponseDto.
+
+        Args:
+            dto: The GetAirportLightResponseDto object.
+
+        Returns:
+            An AirportLight object.
+        """
         return AirportLight(
             icao=dto.icao,
             name=dto.name,
@@ -91,6 +151,9 @@ class AirportLight(BaseModel):
 
 
 class Airport(AirportLight):
+    """
+    Represents an airport.
+    """
     lon: float = Field(description='Longitude expressed in decimal degrees')
     lat: float = Field(description='Latitude expressed in decimal degrees')
     elevation: int = Field(description='Airport elevation in feet')
@@ -105,6 +168,15 @@ class Airport(AirportLight):
 
     @staticmethod
     def from_dto(dto: GetAirportResponseDto) -> 'Airport':
+        """
+        Creates an Airport object from a GetAirportResponseDto.
+
+        Args:
+            dto: The GetAirportResponseDto object.
+
+        Returns:
+            An Airport object.
+        """
         return Airport(
             icao=dto.icao,
             name=dto.name,

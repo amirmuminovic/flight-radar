@@ -2,6 +2,9 @@ from enum import Enum
 
 
 class TimePeriod(Enum):
+    """
+    An enumeration of time periods.
+    """
     DAY = '24h'
     WEEK = '7d'
     MONTH = '30d'
@@ -9,6 +12,9 @@ class TimePeriod(Enum):
 
 
 class FlightCategory(Enum):
+    """
+    An enumeration of flight categories.
+    """
     PASSENGER = 'P'
     CARGO = 'C'
     MILITARY_AND_GOVERNMENT = 'M'
@@ -24,6 +30,9 @@ class FlightCategory(Enum):
 
 
 class HTTPStatus(Enum):
+    """
+    An enumeration of HTTP status codes.
+    """
     BAD_REQUEST = 400
     UNAUTHORIZED = 401
     PAYMENT_REQUIRED = 402
@@ -33,6 +42,9 @@ class HTTPStatus(Enum):
 
 
 class DataSources(Enum):
+    """
+    An enumeration of data sources.
+    """
     ADSB = 'ADSB'
     MLAT = 'MLAT'
     ESTIMATED = 'ESTIMATED'
@@ -40,17 +52,26 @@ class DataSources(Enum):
 
 
 class Direction(Enum):
+    """
+    An enumeration of directions.
+    """
     BOTH = 'both'
     INBOUND = 'inbound'
     OUTBOUND = 'outbound'
 
 
 class Sort(Enum):
+    """
+    An enumeration of sort orders.
+    """
     ASC = 'asc'
     DESC = 'desc'
 
 
 class HistoricFlightEventTypes(Enum):
+    """
+    An enumeration of historic flight event types.
+    """
     ALL = 'all'
     GATE_DEPARTURE = 'gate_departure'
     TAKEOFF = 'takeoff'

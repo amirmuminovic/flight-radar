@@ -5,15 +5,27 @@ from flight_radar.dtos import FlightTrackDto, GetFlightTracksBaseRequestDto
 
 
 class FlightTrackRequest(BaseModel):
+    """
+    Represents a request for flight track data.
+    """
     flight_id: str = Field(description='Unique identifier assigned by Flightradar24 to the flight leg.')
 
     def to_dto(self) -> GetFlightTracksBaseRequestDto:
+        """
+        Converts the request to a DTO.
+
+        Returns:
+            A GetFlightTracksBaseRequestDto object.
+        """
         return GetFlightTracksBaseRequestDto(
             flight_id=self.flight_id,
         )
 
 
 class FlightTrack(BaseModel):
+    """
+    Represents a flight track point.
+    """
     timestamp: datetime = Field(description='Timestamp of the flight position expressed in UTC (ISO 8601 date format).')
     latitude: float = Field(description='Latest latitude expressed in decimal degrees')
     longitude: float = Field(description='Latest longitude expressed in decimal degrees')
@@ -41,6 +53,15 @@ class FlightTrack(BaseModel):
 
     @staticmethod
     def from_dto(dto: FlightTrackDto) -> 'FlightTrack':
+        """
+        Creates a FlightTrack object from a FlightTrackDto.
+
+        Args:
+            dto: The FlightTrackDto object.
+
+        Returns:
+            A FlightTrack object.
+        """
         return FlightTrack(
             timestamp=datetime.fromisoformat(dto.timestamp),
             latitude=dto.lat,
